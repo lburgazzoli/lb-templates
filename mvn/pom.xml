@@ -50,10 +50,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <felix.bundle.plugin.version>2.4.0</felix.bundle.plugin.version>
-        <felix.version>4.2.1</felix.version>
-        <pax.exam.version>3.4.0</pax.exam.version>
-        <pax.url.version>1.6.0</pax.url.version>
+        <felix.bundle.plugin.version>2.5.0</felix.bundle.plugin.version>
+        <felix.version>4.4.0</felix.version>
+        <pax.exam.version>4.0.0</pax.exam.version>
+        <pax.url.version>2.4.0</pax.url.version>
         <osgi.version>5.0.0</osgi.version>
     </properties>
 
@@ -120,29 +120,19 @@
             <version>${pax.url.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- on linux install with sudo apt-get install libjna-java -->
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
-            <version>4.0.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>platform</artifactId>
-            <version>3.5.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.trove4j</groupId>
-            <artifactId>trove4j</artifactId>
-            <version>3.0.3</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.servicemix.tooling</groupId>
+                    <artifactId>depends-maven-plugin</artifactId>
+                    <version>1.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -168,6 +158,26 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.servicemix.tooling</groupId>
+                <artifactId>depends-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-depends-file</id>
+                        <goals>
+                            <goal>generate-depends-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--
+                generate maven dependencies versions file that can be used later
+                to install the right bundle in test phase.
+
+                The file is:
+
+                    target/classes/META-INF/maven/dependencies.properties
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>

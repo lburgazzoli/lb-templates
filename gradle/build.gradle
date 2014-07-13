@@ -74,7 +74,11 @@ subprojects {
             openhftCollection : '3.1.0',
             openhftAffinity   : '2.1.0',
             openhftCompiler   : '2.2.0',
-            jsonpath          : '1.2'
+            jsonpath          : '1.2',
+            osgi              : '5.0.0',
+            felix             : '4.4.0',
+            paxExam           : '4.0.0',
+            paxUrl            : '2.1.0'
         ]
     }
 
